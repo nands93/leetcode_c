@@ -17,7 +17,7 @@ int romanToInt(char* s)
             new_arr = 0;
             if (s[i] == arr[j])
             {
-                if  (i > 0 && (s[i] == 'V') && (s[i - 1] == 'I'))
+                if  (((i > 0 && (s[i] == 'V') && (s[i - 1] == 'I'))) || (i > 0 && ((s[i] == 'D') && (s[i - 1] == 'C'))) || (i > 0 && ((s[i] == 'L') && (s[i - 1] == 'X'))))
                 {
                     new_arr = num[j] - num[j - 1];
                     i--;
@@ -46,8 +46,13 @@ int romanToInt(char* s)
 
 int main()
 {
-    char* s = "MCDLXXVI";
-    int number = romanToInt(s);
-    printf("%d\n", number);
+    int number = 0;
+    char* roman[] = {"III", "LVIII", "MCMXCIV", "MCDLXXVI", "MMMXLV"};
+
+    for (int i = 0; i <= 4; i++)
+    {
+        number = romanToInt(roman[i]);
+        printf("%s is %d\n", roman[i], number);
+    }
     return (0);
 }
