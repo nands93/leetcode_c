@@ -3,45 +3,50 @@
 
 int romanToInt(char* s)
 {
-    char    arr[] = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
-    int     num[] = {1, 5, 10, 50, 100, 500, 1000};
-    int    new_arr = 0;
-    int  len = strlen(s) - 1;
-    int arr_len = (sizeof(arr) / sizeof(arr[0]));
-    int result = 0;
 
-    for (int i = len; i >= 0; i--)
+    int total = 0;
+    int i = 0;
+    int len = strlen(s);
+
+    while(i < len)
     {
-        for (int j = arr_len - 1; j >= 0; j--)
+        int current = 0;
+        int next = 0;
+        
+        switch(s[i])
         {
-            new_arr = 0;
-            if (s[i] == arr[j])
+            case 'I': current = 1; break;
+            case 'V': current = 5; break;
+            case 'X': current = 10; break;
+            case 'L': current = 50; break;
+            case 'C': current = 100; break;
+            case 'D': current = 500; break;
+            case 'M': current = 1000; break;
+        }
+        
+        if (i + 1 < len) {
+            switch(s[i + 1])
             {
-                if  (((i > 0 && (s[i] == 'V') && (s[i - 1] == 'I'))) || (i > 0 && ((s[i] == 'D') && (s[i - 1] == 'C'))) || (i > 0 && ((s[i] == 'L') && (s[i - 1] == 'X'))))
-                {
-                    new_arr = num[j] - num[j - 1];
-                    i--;
-                }
-                else if ((i > 0 && ((s[i] == 'X') && (s[i - 1] == 'L'))) || (i > 0 && ((s[i] == 'C') && (s[i - 1] == 'D'))))
-                {
-                    new_arr = num[j + 1] + num[j];
-                    i--;
-                }
-                else if ((i > 0 && ((s[i] == 'X') && (s[i - 1] == 'I'))) || (i > 0 && ((s[i] == 'C') && (s[i - 1] == 'X'))) || (i > 0 && ((s[i] == 'M') && (s[i - 1] == 'C'))))
-                {
-                    new_arr = num[j] - num[j - 2];
-                    i--;
-                }
-                else
-                {
-                    new_arr = new_arr + num[j];
-                }
-                result += new_arr;
-                break;
+                case 'I': next = 1; break;
+                case 'V': next = 5; break;
+                case 'X': next = 10; break;
+                case 'L': next = 50; break;
+                case 'C': next = 100; break;
+                case 'D': next = 500; break;
+                case 'M': next = 1000; break;
             }
         }
+        
+        if (current < next) {
+            total += (next - current);
+            i += 2;
+        } else {
+            total += current;
+            i++;
+        }
     }
-    return (result);
+    
+    return total;
 }
 
 int main()
