@@ -7,13 +7,16 @@ bool isValid(char* s)
     size_t len = strlen(s);
     if (len % 2 != 0)
         return false;
-    int i = 0;
     int j = 0;
     char characters[len];
-    while (s[i] != '\0')
+    for (size_t i = 0; s[i] != '\0'; i++) 
     {
-        if (s[i] == '{' || s[i] == '[' || s[i] == '(')
+        if (s[i] == '{' || s[i] == '[' || s[i] == '(') {
+            if (j >= len) {
+                return false;
+            }
             characters[j++] = s[i];
+        }
        else if (s[i] == '}')
         {
             if (j == 0 || characters[--j] != '{')
@@ -29,9 +32,10 @@ bool isValid(char* s)
             if (j == 0 || characters[--j] != '(')
                 return false;
         }
-        i++;
+        else
+            return false;
     }
-    return true;
+    return (j == 0);
 }
 
 int main()
