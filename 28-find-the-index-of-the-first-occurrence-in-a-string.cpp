@@ -14,3 +14,12 @@ public:
         return -1;
     }
 };
+
+int main() {
+    Solution sol;
+    string haystack = "hello";
+    string needle = "ll";
+    int result = sol.strStr(haystack, needle);
+    // Expected output: 2
+    return result;
+}
